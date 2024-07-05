@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  color: aliceblue;
+}
+
+h1{
+    margin-top: 7%;
+    font-size: 2rem;
+}
+main {
+  width: 70%;
+  margin: 5% auto;
+  border-radius: 10px;
+  background-color: aliceblue;
+  height: auto;
+}
+.converter-section {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.converter {
+  width: 50%;
+  margin: 2%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.1),
+    0 0 0 1px hsla(230, 13%, 9%, 0.02), 0 0.3px 0.4px hsla(230, 13%, 9%, 0.025),
+    0 1px 3px -1px hsla(230, 13%, 9%, 0.2), 0 3.5px 6px hsla(230, 13%, 9%, 0.12);
+}
+.converter label {
+  display: block;
+  margin-bottom: 8px;
+  color: #6a11cb;
+  text-align: left;
+}
+.converter input,
+.converter select,
+.converter bu {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: none;
+}
+.converter h2{
+    color: #fff;
+    font-size: 1em;
+   margin: 0;
+    background-color:#4776e6;
+    border-radius: 10px;
+}
+button {
+  background-image: linear-gradient(
+    to right,
+    #4776e6 0%,
+    #8e54e9 51%,
+    #4776e6 100%
+  );
+  margin: auto;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+button:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+.rates {
+  margin-top: 20px;
+  color: #4776e6;
+  text-align: center;
+}
+table {
+  width: 70%;
+  margin: auto;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+th{
+    background-color: #4776e6;
+    color: #fff;
+}
+
+p {
+  color: grey;
+  font-weight: bold;
+ 
+}
+
+@media only screen and (max-width: 600px) {
+    main{
+        width: 100%;
+    }
+    .converter-section{
+        flex-direction: column;
+      
+    }
+    .converter{
+        width: 90%;
+        margin: 2% auto;
+    }
+}

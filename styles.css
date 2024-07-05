@@ -55,10 +55,10 @@ main {
   border: none;
 }
 .converter h2{
-    color: #fff;
+    color:#ccc;
     font-size: 1em;
-   margin: 0;
-    background-color:#4776e6;
+   margin-bottom: 2%;
+    
     border-radius: 10px;
 }
 button {

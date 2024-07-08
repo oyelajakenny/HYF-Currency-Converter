@@ -6,24 +6,23 @@ let currencyData = {
   },
 };
 
-//Insert Rate function
-function insertRate() {
+rateForm.addEventListener("submit", (event) => {
+  event.preventDefault();
   const baseCurrency = document.getElementById("baseCurrency").value.toUpperCase();
   const toCurrency = document.getElementById("toCurrency").value.toUpperCase();
   const rate = parseFloat(document.getElementById("rate").value);
 
   if (!currencyData.rates[baseCurrency]) {
     currencyData.rates[baseCurrency] = {};
-        }
+  }
 
   currencyData.rates[baseCurrency][toCurrency] = rate;
-
-  displayRates();
   document.getElementById("rateForm").reset();
-}
+  displayRates();
+});
 
-// Convert currency Function
-function convertCurrency() {
+converterForm.addEventListener("submit", (event) => {
+  event.preventDefault();
   const amount = parseFloat(document.getElementById("amount").value);
   const fromCurrency = document
     .getElementById("convertFrom")
@@ -31,8 +30,9 @@ function convertCurrency() {
   const toCurrency = document.getElementById("convertTo").value.toUpperCase();
 
   if (isNaN(amount)) {
-    document.getElementById("result").innerText =
+    document.getElementById("errorResult").innerText =
       "Please enter a valid number for the amount.";
+    document.getElementById("result").innerText = "";
     return;
   }
 
@@ -40,38 +40,38 @@ function convertCurrency() {
     !currencyData.rates[fromCurrency] ||
     !currencyData.rates[fromCurrency][toCurrency]
   ) {
-    document.getElementById("result").innerText ="Currency conversion rate not available.";
+    document.getElementById("errorResult").innerText =
+      "Currency conversion rate not available.";
+    document.getElementById("result").innerText = "";
     return;
   }
 
   const conversionRate = currencyData.rates[fromCurrency][toCurrency];
   const convertedAmount = amount * conversionRate;
 
-  document.getElementById(
-    "result"
-  ).innerText = `${amount} ${fromCurrency} is equal to ${convertedAmount.toFixed(
-    2
-  )} ${toCurrency}`;
-}
+  document.getElementById("result").innerText = `${amount} ${fromCurrency} is equal to ${convertedAmount.toFixed(2)} ${toCurrency}`;
+  document.getElementById("errorResult").innerText = "";
+});
 
-//Update Currency function
-
-function updateRate() {
+updateRateForm.addEventListener("submit", (event) => {
+  event.preventDefault();
   const baseCurrency = document.getElementById("baseCurrencyUpdate").value.toUpperCase();
   const toCurrency = document.getElementById("toCurrencyUpdate").value.toUpperCase();
   const rate = parseFloat(document.getElementById("rateUpdate").value);
 
   if (
-    !currencyData.rates[baseCurrency] ||!currencyData.rates[baseCurrency][toCurrency]) {
-      document.getElementById("updateError").innerText = "This currency rate does not exist. Use the insert form to add it.";
+    !currencyData.rates[baseCurrency] ||
+    !currencyData.rates[baseCurrency][toCurrency]
+  ) {
+    document.getElementById("updateError").innerText =
+      "This currency rate does not exist. Use the insert form to add it.";
     return;
   }
   currencyData.rates[baseCurrency][toCurrency] = rate;
   document.getElementById("updateError").innerText = "";
-
-  displayRates();
   document.getElementById("updateRateForm").reset();
-}
+  displayRates();
+});
 
 function displayRates() {
   let table =

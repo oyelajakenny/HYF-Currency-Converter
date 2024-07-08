@@ -15,6 +15,7 @@
           <form id="rateForm">
             <label for="fromCurrency">From Currency:</label>
             <select id="baseCurrency" name="baseCurrency" required>
+              <option value="0">Select a Currency:</option>
               <option value="EUR">EUR</option>
               <option value="DKK">DKK</option>
               <option value="NGN">NGN</option>
@@ -26,6 +27,7 @@
 
             <label for="toCurrency">To Currency:</label>
             <select id="toCurrency" name="toCurrency" required>
+              <option value="0">Select a Currency:</option>
               <option value="DKK">DKK</option>
               <option value="EUR">EUR</option>
               <option value="NGN">NGN</option>
@@ -38,7 +40,7 @@
             <label for="rate">Rate:</label>
             <input type="number" id="rate" name="rate" step="0.0001" required />
 
-            <button type="button" onclick="insertRate()">Insert Rate</button>
+            <button type="submit" onsubmit="insertRate()">Insert Rate</button>
           </form>
         </div>
         <div class="converter">
@@ -49,6 +51,7 @@
 
             <label for="convertFrom">From:</label>
             <select id="convertFrom" name="convertFrom" required>
+              <option value="0">Select a Currency:</option>
               <option value="DKK">DKK</option>
               <option value="EUR">EUR</option>
               <option value="NGN">NGN</option>
@@ -60,6 +63,7 @@
 
             <label for="convertTo">To:</label>
             <select id="convertTo" name="convertTo" required>
+              <option value="0">Select a Currency:</option>
               <option value="DKK">DKK</option>
               <option value="EUR">EUR</option>
               <option value="NGN">NGN</option>
@@ -69,8 +73,9 @@
               <option value="GHC">GHC</option>
             </select>
 
-            <button type="button" onclick="convertCurrency()">Convert</button>
+            <button type="submit" onsubmit="convertCurrency()">Convert</button>
           </form>
+          <p id="errorResult" class="error"></p>
           <p id="result"></p>
         </div>
 
@@ -78,29 +83,37 @@
           <h2>Update Currency</h2>
           <form id="updateRateForm">
             <label for="baseCurrencyUpdate">From Currency:</label>
-            <input
-              type="text"
-              id="baseCurrencyUpdate"
-              name="baseCurrencyUpdate"
-              required
-            />
+            <select id="baseCurrencyUpdate" name="baseCurrencyUpdate" required>
+              <option value="0">Select a Currency:</option>
+              <option value="CAD">CAD</option>
+              <option value="DKK">DKK</option>
+              <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
+            </select>
 
             <label for="toCurrencyUpdate">To Currency:</label>
-            <input
-              type="text"
-              id="toCurrencyUpdate"
-              name="toCurrencyUpdate"
-              required
-            />
+            <select id="toCurrencyUpdate" name="toCurrencyUpdate" required>
+              <option value="0">Select a Currency:</option>
+              <option value="DKK">DKK</option>
+              <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="CAD">CAD</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
+            </select>
 
             <label for="rate">New Rate:</label>
             <input type="number" id="rateUpdate" name="rateUpdate" required />
 
-            <button type="button" onclick="updateRate()">Update Rate</button>
+            <button type="submit" onsubmit="updateRate()">Update Rate</button>
           </form>
         </div>
       </section>
-<div class="updaterates">
+      <div class="updaterates">
         <p id="updateError"></p>
       </div>
       <div class="rates">

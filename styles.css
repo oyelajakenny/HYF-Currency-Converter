@@ -111,9 +111,14 @@ th{
 }
 
 p {
-  color: grey;
-  font-weight: bold;
+  color: green;
+  font-size: 15px;
+  margin-top: 10px;
  
+}
+
+.updaterates p{
+  color: red;
 }
 
 @media only screen and (max-width: 600px) {

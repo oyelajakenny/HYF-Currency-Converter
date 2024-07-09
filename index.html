@@ -11,62 +11,114 @@
     <main>
       <section class="converter-section">
         <div class="converter">
-            <h2>Add New Rate</h2>
+          <h2>Add New Rate</h2>
           <form id="rateForm">
             <label for="fromCurrency">From Currency:</label>
-            <input type="text" id="fromCurrency" name="fromCurrency" required />
+            <select id="baseCurrency" name="baseCurrency" required>
+              <option value="0">Select a Currency:</option>
+              <option value="EUR">EUR</option>
+              <option value="DKK">DKK</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="CAD">CAD</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
+            </select>
 
             <label for="toCurrency">To Currency:</label>
-            <input type="text" id="toCurrency" name="toCurrency" required />
+            <select id="toCurrency" name="toCurrency" required>
+              <option value="0">Select a Currency:</option>
+              <option value="DKK">DKK</option>
+              <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="CAD">CAD</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
+            </select>
 
             <label for="rate">Rate:</label>
             <input type="number" id="rate" name="rate" step="0.0001" required />
 
-            <button type="button" onclick="insertRate()">Insert Rate</button>
+            <button type="submit" >Insert Rate</button>
           </form>
         </div>
         <div class="converter">
-            <h2>Currency Converter</h2>
+          <h2>Currency Converter</h2>
           <form id="converterForm">
             <label for="amount">Amount:</label>
             <input type="number" id="amount" name="amount" required />
 
-            <label for="fromCurrency">From:</label>
-            <select id="fCurrency" name="fromCurrency" required>
-              <option value="USD">USD</option>
+            <label for="convertFrom">From:</label>
+            <select id="convertFrom" name="convertFrom" required>
+              <option value="0">Select a Currency:</option>
+              <option value="DKK">DKK</option>
               <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="CAD">CAD</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
             </select>
 
-            <label for="toCurrency">To:</label>
-            <select id="tCurrency" name="toCurrency" required>
-              <option value="USD">USD</option>
+            <label for="convertTo">To:</label>
+            <select id="convertTo" name="convertTo" required>
+              <option value="0">Select a Currency:</option>
+              <option value="DKK">DKK</option>
               <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="CAD">CAD</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
             </select>
 
-            <button type="button" onclick="convertCurrency()">Convert</button>
+            <button type="submit" >Convert</button>
           </form>
+          <p id="errorResult" class="error"></p>
+          <p id="result"></p>
         </div>
 
         <div class="converter">
-            <h2>Update Currency</h2>
+          <h2>Update Currency</h2>
           <form id="updateRateForm">
-            <label for="fromCurrency">From Currency:</label>
-            <input type="text" id="ufromCurrency" name="fromCurrency" required />
+            <label for="baseCurrencyUpdate">From Currency:</label>
+            <select id="baseCurrencyUpdate" name="baseCurrencyUpdate" required>
+              <option value="0">Select a Currency:</option>
+              <option value="CAD">CAD</option>
+              <option value="DKK">DKK</option>
+              <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
+            </select>
 
-            <label for="toCurrency">To Currency:</label>
-            <input type="text" id="utoCurrency" name="toCurrency" required />
+            <label for="toCurrencyUpdate">To Currency:</label>
+            <select id="toCurrencyUpdate" name="toCurrencyUpdate" required>
+              <option value="0">Select a Currency:</option>
+              <option value="DKK">DKK</option>
+              <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+              <option value="JPY">JPY</option>
+              <option value="CAD">CAD</option>
+              <option value="USD">USD</option>
+              <option value="GHC">GHC</option>
+            </select>
 
             <label for="rate">New Rate:</label>
-            <input type="number" id="rate" name="rate" required />
+            <input type="number" id="rateUpdate" name="rateUpdate" required />
 
-            <button type="button" onclick="updateRate()">Update Rate</button>
+            <button type="submit" >Update Rate</button>
           </form>
         </div>
       </section>
-      <p id="result"></p>
+      <div class="updaterates">
+        <p id="updateError"></p>
+      </div>
       <div class="rates">
         <h3>Current Rates</h3>
-        <pre id="currentRates"></pre>
+        <p id="currentRates"></p>
       </div>
     </main>
     <footer>

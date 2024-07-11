@@ -5,9 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <title>Currency Converter</title>
+     <script src="https://kit.fontawesome.com/0f4d71be75.js" crossorigin="anonymous"></script>
+     
   </head>
   <body>
     <h1>Currency Converter App</h1>
+    <div class="search-form">
+      <h3>CURRENCY SEARCH</h3>
+      <form id="searchForm">
+      <select id="searchFrom" name="SearchFrom"  Required>
+        <option value="0">From Currency:</option>
+        <option value="DKK" >DKK</option>
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+        <option value="CAD">CAD</option>
+        <option value="NGN">NGN</option>
+      </select>
+      <select id="searchTo" name="searchTo" required>
+        <option value="0">To Currency:</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="CAD">CAD</option>
+         <option value="DKK" >DKK</option>
+        <option value="NGN">NGN</option>
+             </select>
+      <button type="submit"><i class="fa-solid fa-search"></i>Search</button>
+
+    </form>
+    <div id="searchResult" class="search-result"></div>
+    </div>
+    
     <main>
       <section class="converter-section">
         <div class="converter">

@@ -13,22 +13,10 @@
     <div class="search-form">
       <h3>CURRENCY SEARCH</h3>
       <form id="searchForm">
-      <select id="searchFrom" name="SearchFrom"  Required>
-        <option value="0">From Currency:</option>
-        <option value="DKK" >DKK</option>
-        <option value="EUR">EUR</option>
-        <option value="USD">USD</option>
-        <option value="CAD">CAD</option>
-        <option value="NGN">NGN</option>
-      </select>
-      <select id="searchTo" name="searchTo" required>
-        <option value="0">To Currency:</option>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="CAD">CAD</option>
-         <option value="DKK" >DKK</option>
-        <option value="NGN">NGN</option>
-             </select>
+      <input type="text" id="searchFrom" name="SearchFrom" placeholder="Base Currency (e.g. USD)" Required>
+      
+      <input type="text" id="searchTo" name="searchTo" placeholder="To Currency (e.g. EUR)" required>
+       
       <button type="submit"><i class="fa-solid fa-search"></i>Search</button>
 
     </form>

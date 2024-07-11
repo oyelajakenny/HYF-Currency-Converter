@@ -47,11 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const conversionRate = currencyData.rates[fromCurrency][toCurrency];
     const convertedAmount = amount * conversionRate;
 
-    document.getElementById(
-      "result"
-    ).innerText = `${amount} ${fromCurrency} is equal to ${convertedAmount.toFixed(2)} ${toCurrency}`;
+    document.getElementById("result").innerText = `${amount} ${fromCurrency} is equal to ${convertedAmount.toFixed(2)} ${toCurrency}`;
     document.getElementById("errorResult").innerText = "";
   });
+
 
   updateRateForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -70,18 +69,21 @@ document.addEventListener("DOMContentLoaded", () => {
     displayRates();
   });
 
+
+
   searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const searchFromCurrency = document.getElementById("searchFrom").value.toUpperCase;
-    const searchToCurrency = document.getElementById("searchTo").value.toUpperCase;
-    if (!currencyData.rates[searchFromCurrency] || !currencyData.rates[searchFromCurrency][searchToCurrency]
-    ) {
+    const searchFromCurrency = document.getElementById("searchFrom").value.toUpperCase();
+    const searchToCurrency = document.getElementById("searchTo").value.toUpperCase();
+    if (!currencyData.rates[searchFromCurrency] || !currencyData.rates[searchFromCurrency][searchToCurrency]) {
       document.getElementById("searchResult").innerText = "Currency pair not available";
       return;
     }
     const searchedResult = currencyData.rates[searchFromCurrency][searchToCurrency];
-    document.getElementById("searchResult").innerText = `Search result: 1 ${searchFromCurrency} to ${searchToCurrency} is ${searchedResult} ${searchToCurrency} `;
-      });
+    document.getElementById("searchResult").innerText = `Search result: 1 ${searchFromCurrency} to ${searchToCurrency} = ${searchedResult} ${searchToCurrency}`;
+  });
+
+
 
   function displayRates() {
     let table = "<table><tr><th>From Currency</th><th>To Currency</th><th>Rate</th></tr>";

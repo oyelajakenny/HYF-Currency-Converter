@@ -72,8 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const searchFromCurrency = document.getElementById("searchFrom").value;
-    const searchToCurrency = document.getElementById("searchTo").value;
+    const searchFromCurrency = document.getElementById("searchFrom").value.toUpperCase;
+    const searchToCurrency = document.getElementById("searchTo").value.toUpperCase;
     if (!currencyData.rates[searchFromCurrency] || !currencyData.rates[searchFromCurrency][searchToCurrency]
     ) {
       document.getElementById("searchResult").innerText = "Currency pair not available";

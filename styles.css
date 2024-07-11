@@ -129,7 +129,7 @@ p {
   border-radius: 10px;
  
 }
-.search-form select{
+.search-form input{
   width: 20%;
   padding: 15px;
   margin: 0;

@@ -40,11 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const baseCurrency = document
       .getElementById("baseCurrency")
-      .value.toUpperCase();
+      .value.trim()
+      .toUpperCase();
     const toCurrency = document
       .getElementById("toCurrency")
-      .value.toUpperCase();
-    const rate = parseFloat(document.getElementById("rate").value);
+      .value.trim()
+      .toUpperCase();
+    const rate = parseFloat(document.getElementById("rate").value.trim());
     const existingRate = searchRate(baseCurrency, toCurrency);
     if (existingRate.length > 0) {
       existingRate[0].rate = rate;
@@ -57,11 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   converterForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const amount = parseFloat(document.getElementById("amount").value);
+    const amount = parseFloat(document.getElementById("amount").value.trim());
     const fromCurrency = document
       .getElementById("convertFrom")
-      .value.toUpperCase();
-    const toCurrency = document.getElementById("convertTo").value.toUpperCase();
+      .value.trim()
+      .toUpperCase();
+    const toCurrency = document
+      .getElementById("convertTo")
+      .value.trim()
+      .toUpperCase();
 
     if (isNaN(amount)) {
       document.getElementById("errorResult").innerText =
@@ -89,11 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const baseCurrency = document
       .getElementById("baseCurrencyUpdate")
-      .value.toUpperCase();
+      .value.trim()
+      .toUpperCase();
     const toCurrency = document
       .getElementById("toCurrencyUpdate")
-      .value.toUpperCase();
-    const rate = parseFloat(document.getElementById("rateUpdate").value);
+      .value.trim()
+      .toUpperCase();
+    const rate = parseFloat(document.getElementById("rateUpdate").value.trim());
     const existingRate = searchRate(baseCurrency, toCurrency);
     if (existingRate.length > 0) {
       existingRate[0].rate = rate;
@@ -110,9 +118,9 @@ document.addEventListener("DOMContentLoaded", () => {
   searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const searchFromCurrency =
-      document.getElementById("searchFrom").value.toUpperCase() || null;
+      document.getElementById("searchFrom").value.trim().toUpperCase() || null;
     const searchToCurrency =
-      document.getElementById("searchTo").value.toUpperCase() || null;
+      document.getElementById("searchTo").value.trim().toUpperCase() || null;
     const searchedRates = searchRate(searchFromCurrency, searchToCurrency);
     if (searchedRates.length > 0) {
       let result = "";
@@ -123,8 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "searchResult"
       ).innerText = `Search results:\n${result}`;
     } else {
-      document.getElementById("searchResult").innerText =
-        "Currency pair not available";
+      document.getElementById("searchResult").innerText = "No result found";
     }
   });
 

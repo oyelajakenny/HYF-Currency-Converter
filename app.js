@@ -1,26 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   let currencyData = [
-    { from: "DKK", to: "NGN", rate: 300 },
-    { from: "DKK", to: "CAD", rate: 70 },
-    { from: "DKK", to: "EUR", rate: 70 },
-    { from: "DKK", to: "USD", rate: 0.85 },
-    { from: "DKK", to: "GBP", rate: 0.65 },
-    { from: "USD", to: "DKK", rate: 7 },
-    { from: "USD", to: "CAD", rate: 2 },
-    { from: "USD", to: "EUR", rate: 1.5 },
-    { from: "USD", to: "GBP", rate: 0.75 },
-    { from: "USD", to: "NGN", rate: 1500 },
-    { from: "EUR", to: "DKK", rate: 8 },
-    { from: "EUR", to: "CAD", rate: 200 },
-    { from: "EUR", to: "GBP", rate: 0.9 },
-    { from: "EUR", to: "NGN", rate: 1700 },
-    { from: "GBP", to: "DKK", rate: 9 },
-    { from: "GBP", to: "CAD", rate: 150 },
-    { from: "GBP", to: "USD", rate: 0.75 },
-    { from: "GBP", to: "NGN", rate: 2000 },
-    { from: "CAD", to: "DKK", rate: 4 },
-    { from: "CAD", to: "USD", rate: 1.5 },
-    { from: "CAD", to: "GBP", rate: 0.75 },
+    { from: "DKK", to: "NGN", rate: 300.31 },
+    { from: "DKK", to: "CAD", rate: 0.19 },
+    { from: "DKK", to: "EUR", rate: 0.13 },
+    { from: "DKK", to: "USD", rate: 0.15 },
+    { from: "DKK", to: "GBP", rate: 0.11 },
+    { from: "USD", to: "DKK", rate: 6.87 },
+    { from: "USD", to: "CAD", rate: 1.31 },
+    { from: "USD", to: "EUR", rate: 0.92 },
+    { from: "USD", to: "GBP", rate: 0.77 },
+    { from: "USD", to: "NGN", rate: 767 },
+    { from: "EUR", to: "DKK", rate: 7.44 },
+    { from: "EUR", to: "CAD", rate: 1.46 },
+    { from: "EUR", to: "GBP", rate: 0.85 },
+    { from: "EUR", to: "NGN", rate: 834 },
+    { from: "GBP", to: "DKK", rate: 8.61 },
+    { from: "GBP", to: "CAD", rate: 1.73 },
+    { from: "GBP", to: "USD", rate: 1.3 },
+    { from: "GBP", to: "NGN", rate: 982.82 },
+    { from: "CAD", to: "DKK", rate: 5.09 },
+    { from: "CAD", to: "USD", rate: 0.76 },
+    { from: "CAD", to: "GBP", rate: 0.57 },
   ];
 
   function searchRate(baseCurrency, toCurrency) {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return [];
   }
-
+  //Insert rate
   rateForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const baseCurrency = document
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("rateForm").reset();
     displayRates();
   });
-
+  //Currency converter
   converterForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const amount = parseFloat(document.getElementById("amount").value.trim());
@@ -91,6 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("errorResult").innerText = "";
   });
 
+  //Update form
+
   updateRateForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const baseCurrency = document
@@ -114,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("updateRateForm").reset();
     displayRates();
   });
+  //Search form
 
   searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -135,10 +138,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  //Best performing currency pair
+
+  function topCurrency() {
+    let bestRate = 0;
+    let bestPair = "";
+
+    currencyData.forEach((currency) => {
+      if (currency.rate > bestRate) {
+        bestRate = currency.rate;
+        bestPair = `${currency.from} to ${currency.to}`;
+      }
+    });
+
+    if (bestRate > 0) {
+      document.getElementById(
+        "topCurrency"
+      ).innerText = `Top performing currency is ${bestPair} with a rate of ${bestRate}`;
+    }
+  }
+  //Display the best performing currency
+  topCurrency();
+
   function displayRates() {
     let table =
       "<table><tr><th>From Currency</th><th>To Currency</th><th>Rate</th></tr>";
-
     currencyData.forEach((rate) => {
       table += `<tr><td>${rate.from}</td><td>${rate.to}</td><td>${rate.rate}</td></tr>`;
     });
@@ -149,4 +173,72 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial display of rates
   displayRates();
+  
+//Market status
+  function updateCountdownAndStatus(timeUntilEvent, status) {
+    const countdownDiv = document.getElementById("countdown");
+    const hours = Math.floor(timeUntilEvent / (1000 * 60 * 60));
+    const minutes = Math.floor(
+      (timeUntilEvent % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((timeUntilEvent % (1000 * 60)) / 1000);
+    countdownDiv.innerText = `Market is ${status} until next  ${hours}h : ${minutes}m : ${seconds}s`;
+    countdownDiv.style.color = status === "open" ? "green" : "red";
+  }
+  function initializeAnnouncements() {
+    let now = new Date();
+
+    // Market opens at 9 AM
+    let marketOpen = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      9,
+      0,
+      0,
+      0
+    );
+
+    // Market closes at 5 PM
+    let marketClose = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      17,
+      0,
+      0,
+      0
+    );
+
+    // Calculate time differences
+    let timeUntilOpen = marketOpen - now;
+    let timeUntilClose = marketClose - now;
+
+    // If market is already open, calculate until the next open (next day)
+    if (timeUntilOpen < 0) {
+      marketOpen.setDate(marketOpen.getDate() + 1);
+      timeUntilOpen = marketOpen - now;
+    }
+
+    // If market is already closed, calculate until the next close (next day)
+    if (timeUntilClose < 0) {
+      marketClose.setDate(marketClose.getDate() + 1);
+      timeUntilClose = marketClose - now;
+    }
+    setInterval(() => {
+      now = new Date();
+      if (now.getHours() >= 9 && now.getHours() < 17) {
+        // Market is open
+        updateCountdownAndStatus(marketClose - now, "open");
+      } else {
+        // Market is closed
+        updateCountdownAndStatus(marketOpen - now, "closed");
+      }
+    }, 1000);
+  }
+
+  initializeAnnouncements();
+
 });
+
+

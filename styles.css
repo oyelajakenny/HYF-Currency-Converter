@@ -13,14 +13,32 @@ body {
   background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
   color: aliceblue;
 }
-
+.top-bar{
+  height: 30px;
+  background-color: #fff;
+  color:#6a11cb;
+  padding-top: 5px;
+  font-weight: 600;
+  
+ position: fixed;
+ width: 100%;
+ top: 0;
+}
+.top-bar-wrapper{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.top-currency{
+  color: green;
+}
 h1 {
-  margin-top: 5%;
-  font-size: 2rem;
+  margin: 4% 0;
+  font-size: 2.5rem;
 }
 main {
   width: 70%;
-  margin: 5% auto;
+  margin: 2% auto 5%;
   border-radius: 10px;
   background-color: aliceblue;
   height: auto;
@@ -123,9 +141,9 @@ p {
 }
 .search-form{
   width: 50%;
-  height: 10vh;
+ height: auto;
   /* background-color: #ddd; */
-  margin: 2% auto;
+  margin: 0 auto;
   border-radius: 10px;
  
 }
@@ -148,10 +166,7 @@ p {
   );
   font-size: 15px;
 }
-/* .search-result{
-  margin: % 0;
- 
-} */
+
 
 @media only screen and (max-width: 600px) {
   main {
@@ -164,4 +179,31 @@ p {
     width: 90%;
     margin: 2% auto;
   }
+  .search-form{
+  width: 100%;
+  height: auto;
+  /* height: 10vh; */
+  /* background-color: #ddd; */
+  /* margin: 2% auto; */
+ 
+ 
+}
+  .search-form input{
+  width:25%;
+    /* margin: 2%; */
+  /* margin-bottom: 10px; */
+  border: none;
+ 
+
+}
+.search-form button{
+  display: inline;
+  background-image: linear-gradient(
+    to right,
+    #4776e6 0%,
+    #8e54e9 51%,
+    #4776e6 100%
+  );
+  font-size: 15px;
+}
 }

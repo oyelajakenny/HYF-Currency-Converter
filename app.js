@@ -1,28 +1,89 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let currencyData = [
-    { from: "DKK", to: "NGN", rate: 300.31 },
-    { from: "DKK", to: "CAD", rate: 0.19 },
-    { from: "DKK", to: "EUR", rate: 0.13 },
-    { from: "DKK", to: "USD", rate: 0.15 },
-    { from: "DKK", to: "GBP", rate: 0.11 },
-    { from: "USD", to: "DKK", rate: 6.87 },
-    { from: "USD", to: "CAD", rate: 1.31 },
-    { from: "USD", to: "EUR", rate: 0.92 },
-    { from: "USD", to: "GBP", rate: 0.77 },
-    { from: "USD", to: "NGN", rate: 767 },
-    { from: "EUR", to: "DKK", rate: 7.44 },
-    { from: "EUR", to: "CAD", rate: 1.46 },
-    { from: "EUR", to: "GBP", rate: 0.85 },
-    { from: "EUR", to: "NGN", rate: 834 },
-    { from: "GBP", to: "DKK", rate: 8.61 },
-    { from: "GBP", to: "CAD", rate: 1.73 },
-    { from: "GBP", to: "USD", rate: 1.3 },
-    { from: "GBP", to: "NGN", rate: 982.82 },
-    { from: "CAD", to: "DKK", rate: 5.09 },
-    { from: "CAD", to: "USD", rate: 0.76 },
-    { from: "CAD", to: "GBP", rate: 0.57 },
-  ];
+  let currencyData = [];
 
+  function getData() {
+    fetch(
+      "https://raw.githubusercontent.com/oyelajakenny/oyelajakenny.github.io/main/app.json"
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Fetched data:", data);
+        currencyData = data;
+        displayRates();
+        topCurrency();
+      })
+      .catch((error) => {
+        console.log("Fetch Error:", error);
+      });
+  }
+
+  //Market status
+  function updateCountdownAndStatus(timeUntilEvent, status) {
+    const countdownDiv = document.getElementById("countdown");
+    const hours = Math.floor(timeUntilEvent / (1000 * 60 * 60));
+    const minutes = Math.floor(
+      (timeUntilEvent % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((timeUntilEvent % (1000 * 60)) / 1000);
+    countdownDiv.innerText = `Market is ${status} until next  ${hours}h : ${minutes}m : ${seconds}s`;
+    countdownDiv.style.color = status === "open" ? "green" : "red";
+  }
+  function initializeAnnouncements() {
+    let now = new Date();
+
+    // Market opens at 9 AM
+    let marketOpen = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      9,
+      0,
+      0,
+      0
+    );
+
+    // Market closes at 5 PM
+    let marketClose = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      17,
+      0,
+      0,
+      0
+    );
+
+    // Calculate time differences
+    let timeUntilOpen = marketOpen - now;
+    let timeUntilClose = marketClose - now;
+
+    // If market is already open, calculate until the next open (next day)
+    if (timeUntilOpen < 0) {
+      marketOpen.setDate(marketOpen.getDate() + 1);
+      timeUntilOpen = marketOpen - now;
+    }
+
+    // If market is already closed, calculate until the next close (next day)
+    if (timeUntilClose < 0) {
+      marketClose.setDate(marketClose.getDate() + 1);
+      timeUntilClose = marketClose - now;
+    }
+    setInterval(() => {
+      now = new Date();
+      if (now.getHours() >= 9 && now.getHours() < 17) {
+        // Market is open
+        updateCountdownAndStatus(marketClose - now, "open");
+      } else {
+        // Market is closed
+        updateCountdownAndStatus(marketOpen - now, "closed");
+      }
+    }, 1000);
+  }
   function searchRate(baseCurrency, toCurrency) {
     if (baseCurrency && toCurrency) {
       return currencyData.filter(
@@ -173,72 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial display of rates
   displayRates();
-  
-//Market status
-  function updateCountdownAndStatus(timeUntilEvent, status) {
-    const countdownDiv = document.getElementById("countdown");
-    const hours = Math.floor(timeUntilEvent / (1000 * 60 * 60));
-    const minutes = Math.floor(
-      (timeUntilEvent % (1000 * 60 * 60)) / (1000 * 60)
-    );
-    const seconds = Math.floor((timeUntilEvent % (1000 * 60)) / 1000);
-    countdownDiv.innerText = `Market is ${status} until next  ${hours}h : ${minutes}m : ${seconds}s`;
-    countdownDiv.style.color = status === "open" ? "green" : "red";
-  }
-  function initializeAnnouncements() {
-    let now = new Date();
 
-    // Market opens at 9 AM
-    let marketOpen = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      9,
-      0,
-      0,
-      0
-    );
-
-    // Market closes at 5 PM
-    let marketClose = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      17,
-      0,
-      0,
-      0
-    );
-
-    // Calculate time differences
-    let timeUntilOpen = marketOpen - now;
-    let timeUntilClose = marketClose - now;
-
-    // If market is already open, calculate until the next open (next day)
-    if (timeUntilOpen < 0) {
-      marketOpen.setDate(marketOpen.getDate() + 1);
-      timeUntilOpen = marketOpen - now;
-    }
-
-    // If market is already closed, calculate until the next close (next day)
-    if (timeUntilClose < 0) {
-      marketClose.setDate(marketClose.getDate() + 1);
-      timeUntilClose = marketClose - now;
-    }
-    setInterval(() => {
-      now = new Date();
-      if (now.getHours() >= 9 && now.getHours() < 17) {
-        // Market is open
-        updateCountdownAndStatus(marketClose - now, "open");
-      } else {
-        // Market is closed
-        updateCountdownAndStatus(marketOpen - now, "closed");
-      }
-    }, 1000);
-  }
-
+  getData();
   initializeAnnouncements();
-
 });
-
-

@@ -12,14 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched data:", data);
-        currencyData = data;
+              currencyData = data;
         displayRates();
         topCurrency();
       })
-      .catch((error) => {
-        console.log("Fetch Error:", error);
-      });
+      
   }
 
   //Market status

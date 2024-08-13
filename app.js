@@ -2,22 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let currencyData = [];
 
   async function getData() {
-    try{
-      const response = await  fetch(
-      "https://raw.githubusercontent.com/oyelajakenny/oyelajakenny.github.io/main/app.json"
-    )
-    const data = await response.json();
-    console.log(data)
-    currencyData = data;
-    }catch (error){
-      console.error('Error fetching data:', error);
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/oyelajakenny/oyelajakenny.github.io/main/app.json"
+      );
+      const data = await response.json();
+      currencyData = data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-       displayRates()
-       topCurrency()
-           
-      }
-      
-
+    displayRates();
+    topCurrency();
+  }
 
   //Market status
   function updateCountdownAndStatus(timeUntilEvent, status) {

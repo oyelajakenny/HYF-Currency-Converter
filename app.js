@@ -1,23 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
   let currencyData = [];
 
-  function getData() {
-    fetch(
+  async function getData() {
+    try{
+      const response = await  fetch(
       "https://raw.githubusercontent.com/oyelajakenny/oyelajakenny.github.io/main/app.json"
     )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-              currencyData = data;
-        displayRates();
-        topCurrency();
-      })
+    const data = await response.json();
+    console.log(data)
+    currencyData = data;
+    }catch (error){
+      console.error('Error fetching data:', error);
+    }
+       displayRates()
+       topCurrency()
+           
+      }
       
-  }
+
 
   //Market status
   function updateCountdownAndStatus(timeUntilEvent, status) {
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (bestRate > 0) {
       document.getElementById(
         "topCurrency"
-      ).innerText = `Top performing currency is ${bestPair} with a rate of ${bestRate}`;
+      ).innerText = `Top currency is ${bestPair} with a rate of ${bestRate}`;
     }
   }
   //Display the best performing currency
@@ -231,7 +231,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial display of rates
   displayRates();
-
   getData();
   initializeAnnouncements();
 });

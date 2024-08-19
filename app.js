@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch(
         "https://raw.githubusercontent.com/oyelajakenny/oyelajakenny.github.io/main/app.json"
       );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+}
       const data = await response.json();
       currencyData = data;
     } catch (error) {

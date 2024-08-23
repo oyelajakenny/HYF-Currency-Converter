@@ -93,26 +93,46 @@ document.addEventListener("DOMContentLoaded", () => {
     return [];
   }
   //Insert rate
-  rateForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const baseCurrency = document
-      .getElementById("baseCurrency")
-      .value.trim()
-      .toUpperCase();
-    const toCurrency = document
-      .getElementById("toCurrency")
-      .value.trim()
-      .toUpperCase();
-    const rate = parseFloat(document.getElementById("rate").value.trim());
-    const existingRate = searchRate(baseCurrency, toCurrency);
-    if (existingRate.length > 0) {
-      existingRate[0].rate = rate;
-    } else {
-      currencyData.push({ from: baseCurrency, to: toCurrency, rate });
-    }
-    document.getElementById("rateForm").reset();
-    displayRates();
-  });
+ rateForm.addEventListener("submit", (event) => {
+   event.preventDefault();
+
+   const baseCurrency = document
+     .getElementById("baseCurrency")
+     .value.trim()
+     .toUpperCase();
+   const toCurrency = document
+     .getElementById("toCurrency")
+     .value.trim()
+     .toUpperCase();
+   const rate = parseFloat(document.getElementById("rate").value.trim());
+   const existingRate = searchRate(baseCurrency, toCurrency);
+
+   // Check if the baseCurrency and toCurrency are the same
+   if (baseCurrency === toCurrency) {
+     document.getElementById("existingResult").innerText =
+       "Base currency and target currency cannot be the same";
+     return; // Stop further execution
+   }
+
+   // Check if the exchange rate already exists
+   if (existingRate) {
+     document.getElementById("existingResult").innerText =
+       "Exchange rate already exists";
+  
+   }
+   // If the rate is valid and doesn't exist, add it and show success message
+   currencyData.push({ from: baseCurrency, to: toCurrency, rate });
+   document.getElementById("existingResult").innerText =
+     "";
+   document.getElementById("successResult").innerText =
+     "Rate inserted successfully";
+
+   // Reset the form and update the display
+   document.getElementById("rateForm").reset();
+   displayRates();
+ });
+
+
   //Currency converter
   converterForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -164,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const existingRate = searchRate(baseCurrency, toCurrency);
     if (existingRate.length > 0) {
       existingRate[0].rate = rate;
-      document.getElementById("updateError").innerText = "";
+      document.getElementById("updateError").innerText = " ";
     } else {
       document.getElementById("updateError").innerText =
         "This currency rate does not exist and can't be updated. Use the insert form to add it.";
@@ -214,8 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ).innerText = `Top currency is ${bestPair} with a rate of ${bestRate}`;
     }
   }
-  //Display the best performing currency
-  topCurrency();
+ 
 
   function displayRates() {
     let table =

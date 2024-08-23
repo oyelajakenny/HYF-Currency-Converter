@@ -140,6 +140,9 @@ p {
 .error {
   color: red;
 }
+.success{
+  color: green;
+}
 .search-form{
   width: 50%;
  height: auto;

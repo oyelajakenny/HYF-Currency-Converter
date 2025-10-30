@@ -94,7 +94,8 @@ The app fetches currency data from the following external source:
 - **HTML**: Structure and layout.
 - **CSS**: Styling and responsiveness.
 - **JavaScript**: Core functionality and DOM manipulation.
-- **Fetch API**: For fetching external JSON data.
+- **API**: For fetching external JSON data.
+
 
 ---
 
